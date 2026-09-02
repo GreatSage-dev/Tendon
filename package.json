@@ -8,7 +8,7 @@
     "build": "cd frontend && npm install && npm run build",
     "test": "hardhat test",
     "compile": "hardhat compile",
-    "sim": "node scripts/sniper_sim.cjs",
+    "sim": "hardhat run scripts/sniper_sim.js",
     "deploy:shannon": "hardhat run scripts/deploy.cjs --network shannon",
     "edge-analytics": "node tools/edge_report.js"
   },

@@ -3,31 +3,14 @@
  * Real Onchain Execution, Real Tx Receipts, Real Block-Delta Verification
  */
 
-const { ethers } = require("ethers");
-const fs = require("fs");
-const path = require("path");
-
-const LOCAL_RPC = process.env.RPC_URL || "http://127.0.0.1:8545";
-
-const DEPLOYER_KEY = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-const MM_KEY       = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d";
-const SNIPER_KEY   = "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a";
-
-function loadArtifact(name) {
-  const p = path.join(__dirname, "..", "artifacts", "contracts", `${name}.sol`, `${name}.json`);
-  if (fs.existsSync(p)) return JSON.parse(fs.readFileSync(p, "utf8"));
-  throw new Error(`Artifact not found: ${name}`);
-}
+const hre = require("hardhat");
+const { ethers } = hre;
 
 function runGlostenMilgromAnalytics() {
-  // Glosten-Milgrom Adverse Selection Model parameters
   const gamma = 0.35;        // Fraction of informed traders (snipers)
-  const V_high = 61200;      // True value after positive shock ($)
-  const V_low  = 58800;      // True value after negative shock ($)
   const V_mid  = 60000;      // Prior expectation ($)
-  const deltaV = V_high - V_mid; // $1,200 (2.0% volatility shock)
+  const deltaV = 1200;       // $1,200 (2.0% volatility shock)
 
-  // Unprotected MM spread requirement: S = 2 * gamma * deltaV
   const adverseSelectionBps = (gamma * (deltaV / V_mid)) * 10000; // ~70 bps loss
   const grossSpreadBps = 15.0; // 15 bps spread
   const netEdgeUnprotected = grossSpreadBps - adverseSelectionBps; // -55.0 bps net bleed
@@ -49,41 +32,37 @@ async function main() {
   console.log(`[ANALYTICS] Glosten-Milgrom Adverse Selection Bleed: ${analytics.bleedBps} bps`);
   console.log(`            (Gross Spread: ${analytics.grossSpread} bps | Adverse Selection: ${analytics.adverseBps} bps)\n`);
 
-  const provider = new ethers.JsonRpcProvider(LOCAL_RPC);
-  const deployer = new ethers.NonceManager(new ethers.Wallet(DEPLOYER_KEY, provider));
-  const mm       = new ethers.NonceManager(new ethers.Wallet(MM_KEY, provider));
-  const sniper   = new ethers.NonceManager(new ethers.Wallet(SNIPER_KEY, provider));
-
-  const LoggerArt  = loadArtifact("TendonLogger");
-  const GuardArt   = loadArtifact("TendonGuard");
-  const ProxyArt   = loadArtifact("TendonProxy");
-  const MockDEXArt = loadArtifact("MockDreamDEX");
+  const [deployer, mm, sniper, precompile] = await ethers.getSigners();
 
   // Step 1: Deploy TendonLogger
-  const loggerF = new ethers.ContractFactory(LoggerArt.abi, LoggerArt.bytecode, deployer);
+  const loggerF = await ethers.getContractFactory("TendonLogger", deployer);
   const logger = await loggerF.deploy();
-  const loggerRec = await logger.deploymentTransaction().wait();
+  await logger.waitForDeployment();
   const loggerAddr = await logger.getAddress();
+  const loggerRec = await logger.deploymentTransaction().wait();
   console.log(`[DEPLOY] TendonLogger: \n         Address: ${loggerAddr} | Tx: ${loggerRec.hash}`);
 
   // Step 2: Deploy MockDreamDEX
-  const dexF = new ethers.ContractFactory(MockDEXArt.abi, MockDEXArt.bytecode, deployer);
+  const dexF = await ethers.getContractFactory("MockDreamDEX", deployer);
   const dex = await dexF.deploy(ethers.ZeroAddress);
-  const dexRec = await dex.deploymentTransaction().wait();
+  await dex.waitForDeployment();
   const dexAddr = await dex.getAddress();
+  const dexRec = await dex.deploymentTransaction().wait();
   console.log(`[DEPLOY] MockDreamDEX Pool: \n         Address: ${dexAddr} | Tx: ${dexRec.hash}`);
 
   // Step 3: Deploy TendonProxy & TendonGuard
-  const proxyF = new ethers.ContractFactory(ProxyArt.abi, ProxyArt.bytecode, deployer);
-  const proxy = await proxyF.deploy(loggerAddr, ethers.ZeroAddress, ethers.ZeroAddress);
-  const proxyRec = await proxy.deploymentTransaction().wait();
+  const proxyF = await ethers.getContractFactory("TendonProxy", deployer);
+  const proxy = await proxyF.deploy(loggerAddr, ethers.ZeroAddress, precompile.address);
+  await proxy.waitForDeployment();
   const proxyAddr = await proxy.getAddress();
+  const proxyRec = await proxy.deploymentTransaction().wait();
   console.log(`[DEPLOY] TendonProxy: \n         Address: ${proxyAddr} | Tx: ${proxyRec.hash}`);
 
-  const guardF = new ethers.ContractFactory(GuardArt.abi, GuardArt.bytecode, deployer);
+  const guardF = await ethers.getContractFactory("TendonGuard", deployer);
   const guard = await guardF.deploy(proxyAddr, loggerAddr, ethers.ZeroAddress);
-  const guardRec = await guard.deploymentTransaction().wait();
+  await guard.waitForDeployment();
   const guardAddr = await guard.getAddress();
+  const guardRec = await guard.deploymentTransaction().wait();
   console.log(`[DEPLOY] TendonGuard (Flash-Revoke): \n         Address: ${guardAddr} | Tx: ${guardRec.hash}\n`);
 
   // Wire dependencies
@@ -126,7 +105,7 @@ async function main() {
   ];
   const eventData = ethers.AbiCoder.defaultAbiCoder().encode(["bytes32", "uint256"], [BTC, DROP_PRICE]);
 
-  tx = await proxy.onEvent(ethers.ZeroAddress, topics, eventData);
+  tx = await proxy.connect(precompile).onEvent(ethers.ZeroAddress, topics, eventData);
   const pullRec = await tx.wait();
   const pullBlockNumber = pullRec.blockNumber;
   console.log(`[STREAM] Price Update (-1.5%) → Precompile 0x0100 onEvent():`);
@@ -136,19 +115,16 @@ async function main() {
 
   // Step 8: Sniper Fill Attempt → REVERTS
   const dexSniper = dex.connect(sniper);
-  let sniperTxHash = "";
   try {
     const sniperTx = await dexSniper.executeOrder(1001);
     await sniperTx.wait();
   } catch (err) {
-    sniperTxHash = err.transactionHash || err.receipt?.hash || "0x_reverted_onchain";
     console.log(`[SNIPER] executeOrder(#1001) → REVERTED (OrderInactive):`);
     console.log(`         Reason: Order already pulled by Tendon in Block #${pullBlockNumber}\n`);
   }
 
   // Step 9: TendonLogger Onchain Audit Query
   const pullRecord = await logger.getPull(1n);
-  const mmAddr = await mm.getAddress();
 
   console.log("┌─────────────────────────────────────────────────────────────────────────────┐");
   console.log("│                      JUDGE ON-CHAIN PROOF INSPECTOR                         │");
