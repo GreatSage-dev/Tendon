@@ -32,11 +32,21 @@ async function main() {
   const MockPriceStream = await ethers.getContractFactory("MockPriceStream");
   const priceStream = await MockPriceStream.deploy();
   await priceStream.waitForDeployment();
-  console.log(`MockPriceStream deployed to: ${await priceStream.getAddress()}`);
+  const priceStreamAddress = await priceStream.getAddress();
+  console.log(`MockPriceStream deployed to: ${priceStreamAddress}`);
+
+  // 5. Deploy MockDreamDEX (onchain CLOB orderbook)
+  const MockDreamDEX = await ethers.getContractFactory("MockDreamDEX");
+  const dreamDex = await MockDreamDEX.deploy(proxyAddress);
+  await dreamDex.waitForDeployment();
+  const dexAddress = await dreamDex.getAddress();
+  console.log(`MockDreamDEX deployed to: ${dexAddress}`);
 
   console.log("\nDeployment Summary:");
-  console.log(`TendonLogger: https://shannon-explorer.somnia.network/address/${loggerAddress}`);
-  console.log(`TendonProxy:  https://shannon-explorer.somnia.network/address/${proxyAddress}`);
+  console.log(`TendonLogger:    https://shannon-explorer.somnia.network/address/${loggerAddress}`);
+  console.log(`TendonProxy:     https://shannon-explorer.somnia.network/address/${proxyAddress}`);
+  console.log(`MockPriceStream: https://shannon-explorer.somnia.network/address/${priceStreamAddress}`);
+  console.log(`MockDreamDEX:    https://shannon-explorer.somnia.network/address/${dexAddress}`);
 }
 
 main().catch((error) => {
