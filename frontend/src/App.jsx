@@ -22,9 +22,9 @@ const INITIAL_ORDERS = [
 ];
 
 const INITIAL_LOGS = [
-  { type: 'DEPLOY', message: 'MockDreamDEX Pool deployed at 0x610178dA211FEF7D417bC0e6FeD39F05609AD788', hash: '0x20ae27a96150d3e4dcbe065c99c1776a0deef0e9a6a4cf66249091421756d65c' },
-  { type: 'DEPLOY', message: 'TendonLogger deployed at 0x8A791620dd6260079BF849Dc5567aDC3F2FdC318', hash: '0xc99018a24d1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d' },
-  { type: 'DEPLOY', message: 'TendonProxy deployed at 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e', hash: '0xd92fffc85e2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e' },
+  { type: 'DEPLOY', message: 'MockPriceStream deployed at 0xd65d618f71e9519e33776399d42dC6A0B59DE49B', hash: '0x20ae27a96150d3e4dcbe065c99c1776a0deef0e9a6a4cf66249091421756d65c' },
+  { type: 'DEPLOY', message: 'TendonLogger deployed at 0xa8E1d0BDdA53313a8A59b4F7A144d16bB77AdB8a', hash: '0xc99018a24d1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d' },
+  { type: 'DEPLOY', message: 'TendonProxy deployed at 0x50CdA5222E6d5dD398C7022dEC4B3908B6C6CBE7', hash: '0xd92fffc85e2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e' },
   { type: 'DEPLOY', message: 'TendonGuard (Flash-Revoke) deployed at 0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0', hash: '0xe0700de36f3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f' },
   { type: 'MM', message: 'MM Rule Registered: BTC 100 bps threshold, action: CANCEL_ALL', hash: '0x696354d0a6add67cc14ed454d4d0886e91bec7abca5977cdd768c8dd39168793' },
   { type: 'MM', message: '3 Active Limit Orders Placed on dreamDEX CLOB (#1001, #1002, #1003)', hash: '0x9d79e93d1fdd4678fe0057747dd83e026dcee52cf1642e4f593b8f8d454dfb08' }
@@ -327,7 +327,7 @@ export default function App() {
             <div style={{ animation: 'fadeInUp 0.4s ease both' }}>
               <AuditLedger
                 pullRecords={pullRecords}
-                loggerAddress="0x3c0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a"
+                loggerAddress="0xa8E1d0BDdA53313a8A59b4F7A144d16bB77AdB8a"
               />
               <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: 24 }}>
                 <button
