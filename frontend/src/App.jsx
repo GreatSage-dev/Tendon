@@ -9,6 +9,7 @@ import SniperAttackArena from './components/SniperAttackArena.jsx';
 import AuditLedger from './components/AuditLedger.jsx';
 import EdgeAnalyticsCard from './components/EdgeAnalyticsCard.jsx';
 import SomniaArchitectureMatrix from './components/SomniaArchitectureMatrix.jsx';
+import { IconSwords, IconSliders, IconBarChart, IconScroll } from './components/ui/PremiumIcons.jsx';
 
 // Real Cryptographic Keccak-256 Hash Generator using Ethers.js
 const generateRealTxHash = (dataString) => {
@@ -289,9 +290,11 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab('trading')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  Next: ⚙️ Risk & Orderbook →
+                  <span>Next:</span>
+                  <IconSliders size={14} color="var(--accent)" />
+                  <span>Risk & Orderbook →</span>
                 </button>
               </div>
             </div>
@@ -319,16 +322,20 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab('arena')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  ← Back: ⚔️ Defense Arena
+                  <span>← Back:</span>
+                  <IconSwords size={14} color="var(--accent)" />
+                  <span>Defense Arena</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('analytics')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  Next: 📊 Analytics →
+                  <span>Next:</span>
+                  <IconBarChart size={14} color="var(--accent)" />
+                  <span>Analytics →</span>
                 </button>
               </div>
             </div>
@@ -344,16 +351,20 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab('trading')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  ← Back: ⚙️ Risk & Orderbook
+                  <span>← Back:</span>
+                  <IconSliders size={14} color="var(--accent)" />
+                  <span>Risk & Orderbook</span>
                 </button>
                 <button
                   onClick={() => setActiveTab('audit')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  Next: 📜 Audit Ledger →
+                  <span>Next:</span>
+                  <IconScroll size={14} color="var(--accent)" />
+                  <span>Audit Ledger →</span>
                 </button>
               </div>
             </div>
@@ -369,9 +380,11 @@ export default function App() {
                 <button
                   onClick={() => setActiveTab('analytics')}
                   className="btn-glass"
-                  style={{ padding: '12px 24px', fontSize: 13 }}
+                  style={{ padding: '12px 24px', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 8 }}
                 >
-                  ← Back: 📊 Analytics
+                  <span>← Back:</span>
+                  <IconBarChart size={14} color="var(--accent)" />
+                  <span>Analytics</span>
                 </button>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { IconZap } from './ui/PremiumIcons.jsx';
+import { IconZap, IconAlertTriangle, IconCheckCircle } from './ui/PremiumIcons.jsx';
 
 export default function TendonLandingPage({ onEnterDashboard }) {
   const targetMouseRef = useRef({ x: 0, y: 0 });
@@ -181,11 +181,8 @@ export default function TendonLandingPage({ onEnterDashboard }) {
 
             <div className="feature-visual">
               <div style={{ textAlign: 'center' }}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 48, fontWeight: 700,
-                  color: 'var(--text-tertiary)', opacity: 0.15, marginBottom: 8
-                }}>
-                  ⚠
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12, opacity: 0.35 }}>
+                  <IconAlertTriangle size={42} color="var(--status-danger)" />
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-tertiary)' }}>
                   Block N: Price shifts<br/>
@@ -213,11 +210,8 @@ export default function TendonLandingPage({ onEnterDashboard }) {
 
             <div className="feature-visual" style={{ direction: 'ltr' }}>
               <div style={{ textAlign: 'center' }}>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: 48, fontWeight: 700,
-                  color: 'var(--accent)', opacity: 0.2, marginBottom: 8
-                }}>
-                  ⚡
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 12, opacity: 0.85 }}>
+                  <IconZap size={42} />
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-tertiary)' }}>
                   Block N: Price shifts<br/>
@@ -384,7 +378,9 @@ export default function TendonLandingPage({ onEnterDashboard }) {
             </div>
 
             <div className="landing-flow-card">
-              <div className="landing-flow-num">✓</div>
+              <div className="landing-flow-num" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <IconCheckCircle size={16} color="var(--status-safe)" />
+              </div>
               <h3 className="landing-flow-card-title">Fully On-Chain</h3>
               <p className="landing-flow-card-desc">
                 No off-chain components. No API keys. No cloud functions. Every trigger,

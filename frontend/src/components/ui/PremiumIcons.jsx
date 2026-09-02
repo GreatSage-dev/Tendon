@@ -85,15 +85,28 @@ export function IconExternalLink({ size = 14, color = "currentColor", style }) {
 }
 
 /** Premium Swords / Battle Arena SVG */
-export function IconSwords({ size = 18, style }) {
+export function IconSwords({ size = 18, style, color = "#D1494E" }) {
   return (
     <svg {...defaultProps(size)} style={style}>
-      <path d="M14.5 17.5L3 6V3H6L17.5 14.5" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M13 19L19 13" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" />
-      <path d="M16 16L21 21" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" />
-      <path d="M9.5 17.5L21 6V3H18L6.5 14.5" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M11 19L5 13" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" />
-      <path d="M8 16L3 21" stroke="#D1494E" strokeWidth="2" strokeLinecap="round" />
+      <path d="M14.5 17.5L3 6V3H6L17.5 14.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M13 19L19 13" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      <path d="M16 16L21 21" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      <path d="M9.5 17.5L21 6V3H18L6.5 14.5" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M11 19L5 13" stroke={color} strokeWidth="2" strokeLinecap="round" />
+      <path d="M8 16L3 21" stroke={color} strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/** Premium Scroll / Ledger SVG */
+export function IconScroll({ size = 18, style, color = "currentColor" }) {
+  return (
+    <svg {...defaultProps(size)} style={style}>
+      <path d="M8 3H19C20.1 3 21 3.9 21 5V17C21 18.1 20.1 19 19 19H6C4.34 19 3 17.66 3 16V6C3 4.34 4.34 3 6 3H8Z" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 3V19" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M12 7H17" stroke={color} strokeWidth="1.75" strokeLinecap="round" />
+      <path d="M12 11H17" stroke={color} strokeWidth="1.75" strokeLinecap="round" />
+      <path d="M12 15H15" stroke={color} strokeWidth="1.75" strokeLinecap="round" />
     </svg>
   );
 }

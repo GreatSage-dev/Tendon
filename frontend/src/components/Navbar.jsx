@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { IconShield, IconZap, IconExternalLink, IconCpu } from './ui/PremiumIcons.jsx';
+import { IconShield, IconZap, IconExternalLink, IconCpu, IconSwords, IconSliders, IconBarChart, IconScroll } from './ui/PremiumIcons.jsx';
 
 export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, setActiveTab }) {
   const styles = {
@@ -83,7 +83,10 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
       boxShadow: 'var(--shadow-neu-in)',
     },
     navTabButton: (isActive) => ({
-      padding: '6px 16px',
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '6px',
+      padding: '6px 14px',
       borderRadius: 'var(--radius-pill)',
       fontSize: '12px',
       fontWeight: isActive ? '700' : '500',
@@ -164,10 +167,10 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
   };
 
   const navTabs = [
-    { id: 'arena', label: '⚔️ Defense Arena' },
-    { id: 'trading', label: '⚙️ Risk & Orderbook' },
-    { id: 'analytics', label: '📊 Analytics' },
-    { id: 'audit', label: '📜 Audit Ledger' }
+    { id: 'arena', label: 'Defense Arena', Icon: IconSwords },
+    { id: 'trading', label: 'Risk & Orderbook', Icon: IconSliders },
+    { id: 'analytics', label: 'Analytics', Icon: IconBarChart },
+    { id: 'audit', label: 'Audit Ledger', Icon: IconScroll }
   ];
 
   return (
@@ -195,16 +198,25 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
         {/* Center Tab Navigation Switcher (when activeTab prop is provided) */}
         {setActiveTab && (
           <div style={styles.tabNavContainer}>
-            {navTabs.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setActiveTab(t.id)}
-                className="dash-nav-tab"
-                style={styles.navTabButton(activeTab === t.id)}
-              >
-                {t.label}
-              </button>
-            ))}
+            {navTabs.map(t => {
+              const isActive = activeTab === t.id;
+              const TabIcon = t.Icon;
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => setActiveTab(t.id)}
+                  className="dash-nav-tab"
+                  style={styles.navTabButton(isActive)}
+                >
+                  <TabIcon
+                    size={14}
+                    color={isActive ? 'var(--accent)' : 'var(--text-secondary)'}
+                    style={{ flexShrink: 0 }}
+                  />
+                  <span>{t.label}</span>
+                </button>
+              );
+            })}
           </div>
         )}
 
