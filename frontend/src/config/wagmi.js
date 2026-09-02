@@ -12,10 +12,10 @@ export const somniaTestnet = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://dream-rpc.shannon.somnia.network'],
+      http: ['https://dream-rpc.somnia.network', 'https://api.infra.testnet.somnia.network'],
     },
     public: {
-      http: ['https://dream-rpc.shannon.somnia.network'],
+      http: ['https://dream-rpc.somnia.network', 'https://api.infra.testnet.somnia.network'],
     },
   },
   blockExplorers: {
