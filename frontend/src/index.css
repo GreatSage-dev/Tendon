@@ -894,3 +894,427 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg-surface); }
 ::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--bg-hover); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   DASHBOARD PREMIUM SYSTEM
+   Frosted glass cards, hover lift, staggered entry, custom controls
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --status-deploy: #8E44AD;
+}
+
+/* ─── Dashboard Card — Frosted Glass with Hover Lift ─────────────── */
+
+.dash-card {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(224, 229, 236, 0.80) 50%,
+    rgba(216, 221, 229, 0.65) 100%
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    var(--shadow-neu-out),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(163, 177, 198, 0.10);
+  transition: all 0.4s var(--ease-out-expo);
+  animation: tiltIn 0.6s var(--ease-out-expo) both;
+  overflow: hidden;
+}
+
+/* Top-edge glass reflection */
+.dash-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dash-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    var(--shadow-neu-hover),
+    inset 0 1px 3px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(163, 177, 198, 0.12),
+    0 0 24px var(--accent-glow);
+  border-color: rgba(255, 255, 255, 0.70);
+}
+
+/* Staggered entry delays */
+.dash-card:nth-child(1) { animation-delay: 0.05s; }
+.dash-card:nth-child(2) { animation-delay: 0.15s; }
+.dash-card:nth-child(3) { animation-delay: 0.25s; }
+.dash-card:nth-child(4) { animation-delay: 0.35s; }
+
+/* ─── Dashboard Card Header ─────────────────────────────────────── */
+
+.dash-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-default);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ─── Dashboard Buttons — Glass Variants ─────────────────────────── */
+
+.dash-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  outline: none;
+  color: var(--accent);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.50) 0%,
+    rgba(255, 255, 255, 0.20) 50%,
+    rgba(255, 255, 255, 0.35) 100%
+  );
+  backdrop-filter: blur(6px);
+  box-shadow:
+    var(--shadow-neu-out-sm),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7),
+    inset 0 -1px 1px rgba(163, 177, 198, 0.10);
+  transition: all 0.3s var(--ease-out-expo);
+  overflow: hidden;
+}
+
+/* Glass shine sweep on hover */
+.dash-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-15deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.dash-btn:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--shadow-neu-hover),
+    inset 0 1px 3px rgba(255, 255, 255, 0.85),
+    inset 0 -1px 2px rgba(163, 177, 198, 0.15);
+  border-color: rgba(255, 255, 255, 0.70);
+}
+
+.dash-btn:hover::after {
+  animation: glassShine 0.6s var(--ease-out-expo) forwards;
+}
+
+.dash-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-neu-in);
+}
+
+.dash-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-neu-in);
+}
+
+.dash-btn:disabled:hover {
+  transform: none;
+  box-shadow: var(--shadow-neu-in);
+}
+
+.dash-btn:disabled::after {
+  display: none;
+}
+
+/* Status-colored variants */
+.dash-btn-danger {
+  color: var(--status-danger);
+  border-color: rgba(209, 73, 78, 0.15);
+}
+
+.dash-btn-danger:hover {
+  box-shadow:
+    var(--shadow-neu-hover),
+    0 0 16px rgba(209, 73, 78, 0.12);
+}
+
+.dash-btn-safe {
+  color: var(--status-safe);
+  border-color: rgba(46, 174, 123, 0.15);
+}
+
+.dash-btn-safe:hover {
+  box-shadow:
+    var(--shadow-neu-hover),
+    0 0 16px rgba(46, 174, 123, 0.12);
+}
+
+/* Full-width variant */
+.dash-btn-full {
+  width: 100%;
+}
+
+/* ─── Dashboard Inputs — Neumorphic Inset with Focus Glow ────────── */
+
+.dash-input {
+  width: 100%;
+  background-color: var(--bg-inset);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-neu-in);
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.dash-input:focus {
+  border-color: var(--accent);
+  box-shadow:
+    var(--shadow-neu-in),
+    0 0 0 3px var(--accent-glow);
+}
+
+.dash-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ─── Dashboard Select — Custom Chevron ──────────────────────────── */
+
+.dash-select {
+  width: 100%;
+  background-color: var(--bg-inset);
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 12px 40px 12px 16px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-neu-in);
+  outline: none;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a7e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+}
+
+.dash-select:focus {
+  border-color: var(--accent);
+  box-shadow:
+    var(--shadow-neu-in),
+    0 0 0 3px var(--accent-glow);
+}
+
+/* ─── Dashboard Range Slider — Custom Neumorphic ─────────────────── */
+
+.dash-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: var(--bg-inset);
+  border-radius: 3px;
+  box-shadow: var(--shadow-neu-in);
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.dash-range:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dash-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    var(--bg-surface) 100%
+  );
+  border: 2px solid var(--accent);
+  box-shadow:
+    2px 2px 6px var(--shadow-dark),
+    -2px -2px 6px var(--shadow-light),
+    0 0 8px var(--accent-glow);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out-expo);
+}
+
+.dash-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow:
+    2px 2px 6px var(--shadow-dark),
+    -2px -2px 6px var(--shadow-light),
+    0 0 16px var(--accent-glow);
+}
+
+.dash-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    var(--bg-surface) 100%
+  );
+  border: 2px solid var(--accent);
+  box-shadow:
+    2px 2px 6px var(--shadow-dark),
+    -2px -2px 6px var(--shadow-light),
+    0 0 8px var(--accent-glow);
+  cursor: pointer;
+}
+
+/* ─── Dashboard Row Hover Effects ────────────────────────────────── */
+
+.dash-log-row {
+  transition: all 0.2s var(--ease-out-expo);
+}
+
+.dash-log-row:hover {
+  transform: translateX(4px);
+  box-shadow:
+    var(--shadow-neu-out-sm),
+    0 0 12px var(--accent-glow);
+}
+
+.dash-order-row {
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.dash-order-row:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--shadow-neu-hover) !important;
+}
+
+.dash-table-row {
+  transition: background 0.2s ease;
+}
+
+.dash-table-row:hover {
+  background: var(--accent-muted) !important;
+}
+
+/* ─── Dashboard Footer — Frosted Glass ───────────────────────────── */
+
+.dash-footer {
+  padding: 20px 48px;
+  margin-top: auto;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(224, 229, 236, 0.70) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 -4px 12px rgba(163, 177, 198, 0.20),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Dashboard Back Link ────────────────────────────────────────── */
+
+.dash-back-link {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  padding: 4px 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.dash-back-link:hover {
+  color: var(--accent);
+  transform: translateX(-4px);
+}
+
+/* ─── Dashboard Navbar Tab Hover ─────────────────────────────────── */
+
+.dash-nav-tab {
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.dash-nav-tab:hover {
+  background: rgba(74, 127, 199, 0.06);
+  color: var(--text-primary);
+}
+
+/* ─── Dashboard Status Bar ───────────────────────────────────────── */
+
+.dash-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 20px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(224, 229, 236, 0.70) 100%
+  );
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.50);
+  box-shadow:
+    var(--shadow-neu-out-sm),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ─── Dashboard Notice Box ───────────────────────────────────────── */
+
+.dash-notice {
+  padding: 16px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: var(--shadow-neu-in);
+  border-left: 3px solid var(--accent);
+}

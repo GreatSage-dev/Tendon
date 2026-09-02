@@ -199,6 +199,7 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
+                className="dash-nav-tab"
                 style={styles.navTabButton(activeTab === t.id)}
               >
                 {t.label}

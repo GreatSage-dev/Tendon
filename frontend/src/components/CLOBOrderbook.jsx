@@ -141,7 +141,15 @@ export default function CLOBOrderbook({ orders, market, onAddOrder }) {
   };
 
   return (
-    <div style={styles.container}>
+    <div className="dash-card" style={{
+      padding: '24px',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+      fontFamily: 'var(--font-sans)',
+      color: 'var(--text-primary)',
+      boxSizing: 'border-box'
+    }}>
       <div style={styles.header}>
         <div style={styles.titleGroup}>
           <IconLayers size={20} />
@@ -149,7 +157,7 @@ export default function CLOBOrderbook({ orders, market, onAddOrder }) {
             dreamDEX CLOB ORDERBOOK ({market.symbol})
           </h2>
         </div>
-        <button onClick={onAddOrder} style={styles.addBtn}>
+        <button onClick={onAddOrder} className="dash-btn" style={{ padding: '6px 12px', fontSize: '12px' }}>
           <IconPlus size={14} />
           <span>Stage Limit Order</span>
         </button>
@@ -169,7 +177,7 @@ export default function CLOBOrderbook({ orders, market, onAddOrder }) {
               asks.map((o) => {
                 const isCancelled = o.status === 'CANCELLED_BY_TENDON';
                 return (
-                  <div key={o.id} style={styles.orderRow(isCancelled, 'ask')}>
+                  <div key={o.id} className="dash-order-row" style={styles.orderRow(isCancelled, 'ask')}>
                     <div style={styles.rowLeft}>
                       <span style={styles.orderIdBadge}>#{o.id}</span>
                       <span style={styles.price}>${o.price.toLocaleString()}</span>
@@ -207,7 +215,7 @@ export default function CLOBOrderbook({ orders, market, onAddOrder }) {
               bids.map((o) => {
                 const isCancelled = o.status === 'CANCELLED_BY_TENDON';
                 return (
-                  <div key={o.id} style={styles.orderRow(isCancelled, 'bid')}>
+                  <div key={o.id} className="dash-order-row" style={styles.orderRow(isCancelled, 'bid')}>
                     <div style={styles.rowLeft}>
                       <span style={styles.orderIdBadge}>#{o.id}</span>
                       <span style={styles.price}>${o.price.toLocaleString()}</span>

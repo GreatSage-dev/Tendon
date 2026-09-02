@@ -262,7 +262,7 @@ export default function MMRuleManager({
   };
 
   return (
-    <div style={styles.container}>
+    <div className="dash-card" style={{ padding: '24px', fontFamily: 'var(--font-sans)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div style={styles.header}>
         <div style={styles.titleGroup}>
           <IconSliders size={20} />
@@ -279,7 +279,7 @@ export default function MMRuleManager({
           <select
             value={selectedMarket.symbol}
             onChange={(e) => handleMarketChange(e.target.value)}
-            style={styles.select}
+            className="dash-select"
           >
             {MARKETS.map(m => (
               <option key={m.symbol} value={m.symbol}>
@@ -300,7 +300,7 @@ export default function MMRuleManager({
               step="any"
               value={refPrice}
               onChange={(e) => setRefPrice(e.target.value)}
-              style={styles.input}
+              className="dash-input"
               required
             />
           </div>
@@ -311,7 +311,7 @@ export default function MMRuleManager({
               type="number"
               value={thresholdBps}
               onChange={(e) => setThresholdBps(e.target.value)}
-              style={styles.input}
+              className="dash-input"
               required
             />
             <p style={{ ...styles.helperText, ...styles.accentText }}>
@@ -336,14 +336,18 @@ export default function MMRuleManager({
           </div>
         </div>
 
-        <div style={styles.noticeBox}>
+        <div className="dash-notice">
           <IconShieldCheck size={18} />
           <p style={styles.noticeText}>
             <span style={{ color: 'var(--accent)', fontWeight: 600 }}>Tendon Builder Fee:</span> 0.10% (10 bps) charged only upon successful intra-block reactive cancellation. Stale orders are pulled directly via <code style={styles.codeSnippet}>0x0100</code> precompile.
           </p>
         </div>
 
-        <button type="submit" style={styles.submitBtn}>
+        <button
+          type="submit"
+          className="dash-btn dash-btn-full"
+          style={{ padding: '14px', fontSize: '13px', letterSpacing: '1px' }}
+        >
           <IconRefresh size={16} />
           REGISTER REACTIVE RULE
         </button>
@@ -359,11 +363,13 @@ export default function MMRuleManager({
             type="number"
             value={depositAmount}
             onChange={(e) => setDepositAmount(e.target.value)}
-            style={styles.collateralInput}
+            className="dash-input"
+            style={{ width: '100px' }}
           />
           <button
             onClick={() => onDeposit(depositAmount)}
-            style={styles.depositBtn}
+            className="dash-btn dash-btn-safe"
+            style={{ flex: 1, padding: '10px', fontSize: '13px' }}
           >
             Deposit Collateral
           </button>

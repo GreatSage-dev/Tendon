@@ -3,12 +3,8 @@ import { IconBarChart, IconTrendingDown, IconShieldCheck } from './ui/PremiumIco
 
 export default function EdgeAnalyticsCard() {
   return (
-    <div style={{
-      background: 'var(--bg-surface)',
-      borderRadius: 'var(--radius-lg)',
+    <div className="dash-card" style={{
       padding: '24px',
-      boxShadow: 'var(--shadow-neu-out)',
-      border: '1px solid var(--border-subtle)',
       fontFamily: 'var(--font-sans)',
       color: 'var(--text-primary)'
     }}>

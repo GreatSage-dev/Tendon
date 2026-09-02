@@ -213,11 +213,7 @@ export default function App() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <button
               onClick={() => setView('landing')}
-              style={{
-                background: 'none', border: 'none', color: 'var(--text-tertiary)',
-                cursor: 'pointer', fontSize: 12, fontFamily: 'var(--font-mono)',
-                padding: 0, textAlign: 'left', display: 'flex', alignItems: 'center', gap: 8, transition: 'color 0.2s'
-              }}
+              className="dash-back-link"
             >
               ← Back to Home
             </button>
@@ -226,20 +222,13 @@ export default function App() {
             </h1>
           </div>
 
-          <div style={{ 
-            display: 'flex', alignItems: 'center', gap: 16, 
-            padding: '10px 20px', 
-            borderRadius: 20, 
-            background: 'var(--bg-surface)', 
-            boxShadow: 'var(--shadow-neu-out-sm)',
-            fontSize: 13, fontWeight: 500
-          }}>
+          <div className="dash-status-bar">
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: simState === 'IDLE' ? '#2EAE7B' : 'var(--accent)', boxShadow: `0 0 8px ${simState === 'IDLE' ? '#2EAE7B' : 'var(--accent)'}` }}></div>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: simState === 'IDLE' ? 'var(--status-safe)' : 'var(--accent)', boxShadow: `0 0 8px ${simState === 'IDLE' ? 'var(--status-safe)' : 'var(--accent)'}` }}></div>
               <span style={{ color: 'var(--text-secondary)' }}>Status:</span>
               <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>{simState}</span>
             </div>
-            <div style={{ width: 1, height: 16, background: '#d1d9e6' }}></div>
+            <div style={{ width: 1, height: 16, background: 'var(--border-default)' }}></div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ color: 'var(--text-secondary)' }}>Network:</span>
               <span style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-mono)' }}>Somnia 50312</span>
@@ -355,13 +344,9 @@ export default function App() {
 
       </main>
 
-      <footer style={{ 
-        padding: '24px 48px', 
-        background: 'var(--bg-surface)',
-        boxShadow: '0 -4px 12px rgba(209, 217, 230, 0.5)',
-        marginTop: 'auto',
+      <footer className="dash-footer" style={{ 
         display: 'flex',
-        justifyContent: 'center'
+        justify: 'center'
       }}>
         <div style={{ 
           display: 'flex', 

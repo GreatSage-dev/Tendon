@@ -25,14 +25,8 @@ export default function SniperAttackArena({
   const protectedOrdersCount = orders.filter(o => o.status === 'CANCELLED_BY_TENDON' || o.status === 'SNIPER_FAILED').length;
 
   return (
-    <div style={{
-      backgroundColor: 'var(--bg-surface)',
-      border: '1px solid var(--border-subtle)',
-      borderRadius: 'var(--radius-lg)',
+    <div className="dash-card" style={{
       padding: '24px',
-      boxShadow: 'var(--shadow-neu-out)',
-      position: 'relative',
-      overflow: 'hidden',
       fontFamily: 'var(--font-sans)',
       color: 'var(--text-primary)'
     }}>
@@ -71,29 +65,10 @@ export default function SniperAttackArena({
 
         <button
           onClick={onReset}
+          className="dash-btn"
           style={{
             padding: '6px 12px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-subtle)',
-            backgroundColor: 'var(--bg-surface)',
-            color: 'var(--text-secondary)',
-            fontSize: '12px',
-            fontFamily: 'var(--font-mono)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            cursor: 'pointer',
-            boxShadow: 'var(--shadow-neu-out-sm)',
-            transition: 'all 0.2s ease',
-            outline: 'none'
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.color = 'var(--accent)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-neu-in)';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.color = 'var(--text-secondary)';
-            e.currentTarget.style.boxShadow = 'var(--shadow-neu-out-sm)';
+            fontSize: '12px'
           }}
         >
           <IconRefresh size={14} />
@@ -159,46 +134,17 @@ export default function SniperAttackArena({
               value={shockPercent}
               onChange={(e) => setShockPercent(parseFloat(e.target.value))}
               disabled={simState !== 'IDLE'}
-              style={{
-                width: '100%',
-                cursor: simState === 'IDLE' ? 'pointer' : 'not-allowed',
-                opacity: simState === 'IDLE' ? 1 : 0.5
-              }}
+              className="dash-range"
             />
           </div>
 
           <button
             onClick={() => onTriggerPriceShock(shockPercent)}
             disabled={simState !== 'IDLE' || activeOrdersCount === 0}
+            className="dash-btn dash-btn-danger dash-btn-full"
             style={{
-              width: '100%',
               padding: '10px',
-              borderRadius: 'var(--radius-sm)',
-              fontSize: '12px',
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 'bold',
-              letterSpacing: '0.05em',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              border: 'none',
-              cursor: (simState === 'IDLE' && activeOrdersCount > 0) ? 'pointer' : 'not-allowed',
-              backgroundColor: 'var(--bg-surface)',
-              color: (simState === 'IDLE' && activeOrdersCount > 0) ? 'var(--status-danger)' : 'var(--text-tertiary)',
-              boxShadow: (simState === 'IDLE' && activeOrdersCount > 0) ? 'var(--shadow-neu-out)' : 'var(--shadow-neu-in)',
-              transition: 'all 0.2s ease',
               marginTop: 'auto'
-            }}
-            onMouseOver={(e) => {
-              if (simState === 'IDLE' && activeOrdersCount > 0) {
-                e.currentTarget.style.boxShadow = 'var(--shadow-neu-in)';
-              }
-            }}
-            onMouseOut={(e) => {
-              if (simState === 'IDLE' && activeOrdersCount > 0) {
-                e.currentTarget.style.boxShadow = 'var(--shadow-neu-out)';
-              }
             }}
           >
             <IconZap size={16} />
@@ -324,35 +270,10 @@ export default function SniperAttackArena({
           <button
             onClick={onSniperAttack}
             disabled={simState !== 'PULLED'}
+            className="dash-btn dash-btn-danger dash-btn-full"
             style={{
-              width: '100%',
               padding: '10px',
-              borderRadius: 'var(--radius-sm)',
-              fontSize: '12px',
-              fontFamily: 'var(--font-mono)',
-              fontWeight: 'bold',
-              letterSpacing: '0.05em',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px',
-              border: 'none',
-              cursor: simState === 'PULLED' ? 'pointer' : 'not-allowed',
-              backgroundColor: 'var(--bg-surface)',
-              color: simState === 'PULLED' ? 'var(--status-danger)' : simState === 'SNIPER_FAILED' ? 'var(--status-danger)' : 'var(--text-tertiary)',
-              boxShadow: simState === 'PULLED' ? 'var(--shadow-neu-out)' : 'var(--shadow-neu-in)',
-              transition: 'all 0.2s ease',
               marginTop: 'auto'
-            }}
-            onMouseOver={(e) => {
-              if (simState === 'PULLED') {
-                e.currentTarget.style.boxShadow = 'var(--shadow-neu-in)';
-              }
-            }}
-            onMouseOut={(e) => {
-              if (simState === 'PULLED') {
-                e.currentTarget.style.boxShadow = 'var(--shadow-neu-out)';
-              }
             }}
           >
             <IconSwords size={16} />
@@ -415,7 +336,7 @@ export default function SniperAttackArena({
           boxShadow: 'var(--shadow-neu-in)',
           borderRadius: 'var(--radius-md)',
           padding: '12px',
-          maxHeight: '192px',
+          maxHeight: '320px',
           overflowY: 'auto',
           display: 'flex',
           flexDirection: 'column',
@@ -423,7 +344,7 @@ export default function SniperAttackArena({
         }}>
           {logs.map((log, idx) => {
             let logColor = 'var(--text-tertiary)';
-            if (log.type === 'DEPLOY') logColor = '#8E44AD';
+            if (log.type === 'DEPLOY') logColor = 'var(--status-deploy)';
             else if (log.type === 'STREAM') logColor = 'var(--status-warn)';
             else if (log.type === 'TENDON') logColor = 'var(--accent)';
             else if (log.type === 'SNIPER') logColor = 'var(--status-danger)';
@@ -431,6 +352,7 @@ export default function SniperAttackArena({
             return (
               <div
                 key={idx}
+                className="dash-log-row"
                 style={{
                   padding: '10px',
                   backgroundColor: 'var(--bg-surface)',

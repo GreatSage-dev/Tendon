@@ -5,12 +5,8 @@ const EXPLORER_BASE = "https://shannon-explorer.somnia.network";
 
 export default function AuditLedger({ pullRecords, loggerAddress }) {
   return (
-    <div style={{
-      background: 'var(--bg-surface)',
-      borderRadius: 'var(--radius-lg)',
+    <div className="dash-card" style={{
       padding: '24px',
-      boxShadow: 'var(--shadow-neu-out)',
-      border: '1px solid var(--border-subtle)',
       fontFamily: 'var(--font-sans)',
       color: 'var(--text-primary)'
     }}>
@@ -162,7 +158,7 @@ export default function AuditLedger({ pullRecords, loggerAddress }) {
                     #{p.blockNumber}
                   </td>
                   <td style={{ padding: '12px', color: 'var(--status-warn)' }}>
-                    {p.feePaid} STT
+                    {p.feePaid}
                   </td>
                   <td style={{ padding: '12px', textAlign: 'right' }}>
                     <a
