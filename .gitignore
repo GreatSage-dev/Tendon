@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Hardhat Build
+artifacts/
+cache/
+
+# Frontend Build
+frontend/dist/
+
+# Environment Variables & Keys
+.env
+.env.local
+
+# Logs & Temp
+*.log
+temp_bot_kit/
+.system_generated/
