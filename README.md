@@ -1,6 +1,20 @@
 # Tendon — Reactive Order Protection Layer for dreamDEX on Somnia
 
-> **On an on-chain Central Limit Order Book (CLOB), market makers bleed 35–83.4% of their spread to mempool snipers on volatile moves, resulting in a net loss per volatile cycle.** *(Measured mathematically via Glosten–Milgrom adverse selection modeling on dreamDEX positions).*
+> **"$500 million."**  
+> **That is what toxic order flow costs market makers annually across decentralized liquidity venues — up to 35% of total profits, drained during the seconds around price resolution events. (Milionis et al., Columbia / Flashbots, 2022.)**
+
+---
+
+> [!IMPORTANT]
+> ### 🏆 The Proof is in the Chain, Not in the Submission
+> Most hackathon submissions ask judges to trust slides, diagrams, or pre-recorded videos. **Tendon gives you verifiable on-chain proof.**
+> 
+> Open the **Somnia Shannon Testnet Explorer** to inspect Tendon's live deployed contracts:
+> * **`TendonProxy.sol`** (L1 Reactive Protection Layer): [`0x50CdA5222E6d5dD398C7022dEC4B3908B6C6CBE7`](https://shannon-explorer.somnia.network/address/0x50CdA5222E6d5dD398C7022dEC4B3908B6C6CBE7)
+> * **`TendonLogger.sol`** (Immutable Audit Storage): [`0xa8E1d0BDdA53313a8A59b4F7A144d16bB77AdB8a`](https://shannon-explorer.somnia.network/address/0xa8E1d0BDdA53313a8A59b4F7A144d16bB77AdB8a)
+> * **`MockPriceStream.sol`** (Testnet Oracle Feed): [`0xd65d618f71e9519e33776399d42dC6A0B59DE49B`](https://shannon-explorer.somnia.network/address/0xd65d618f71e9519e33776399d42dC6A0B59DE49B)
+> 
+> **The Verifiable Chain Moment:** See the price update land, witness Tendon cancel resting limit orders intra-block via Somnia's `0x0100` precompile, and watch any mempool sniper fill transaction **REVERT on-chain with `OrderInactive()`**.
 
 Tendon is **infrastructure** — an on-chain reactive proxy deployed on **Somnia Shannon Testnet** that eliminates toxic flow, LVR (Loss-Versus-Rebalancing), and mempool snipers on **dreamDEX**. 
 
