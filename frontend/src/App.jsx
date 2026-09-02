@@ -196,8 +196,10 @@ export default function App() {
         ['function executeOrder(uint128 orderId) external returns (bool)'],
         wallet
       );
-      const tx = await dexContract.executeOrder(1001).catch(err => {
+      // Explicit gasLimit forces RPC to broadcast failing transaction so it mines on-chain as REVERTED
+      const tx = await dexContract.executeOrder(1001, { gasLimit: 150000 }).catch(err => {
         if (err.transactionHash) return { hash: err.transactionHash };
+        if (err.receipt && err.receipt.hash) return { hash: err.receipt.hash };
         throw err;
       });
       if (tx && tx.hash) sniperHash = tx.hash;
