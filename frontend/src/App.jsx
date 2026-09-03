@@ -243,18 +243,18 @@ export default function App() {
         setActiveTab={setActiveTab}
       />
 
-      <main style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 48px', flex: 1, width: '100%', animation: 'fadeInUp 0.5s ease both' }}>
+      <main className="dash-main" style={{ flex: 1, animation: 'fadeInUp 0.5s ease both' }}>
         
         {/* Header Bar */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <div className="dash-header-bar">
+          <div className="dash-title-group">
             <button
               onClick={() => setView('landing')}
               className="dash-back-link"
             >
               ← Back to Home
             </button>
-            <h1 style={{ margin: 0, fontSize: 26, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>
+            <h1 className="dash-page-title">
               Market Maker Control Center
             </h1>
           </div>
@@ -286,7 +286,7 @@ export default function App() {
                 logs={logs}
                 onReset={handleReset}
               />
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 24 }}>
+              <div className="dash-flow-nav" style={{ justifyContent: 'flex-end' }}>
                 <button
                   onClick={() => setActiveTab('trading')}
                   className="btn-glass"
@@ -302,7 +302,7 @@ export default function App() {
 
           {activeTab === 'trading' && (
             <div style={{ animation: 'fadeInUp 0.4s ease both' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: 28 }}>
+              <div className="dash-trading-grid">
                 <MMRuleManager
                   rule={rule}
                   onSaveRule={handleSaveRule}
@@ -318,7 +318,7 @@ export default function App() {
                   onAddOrder={handleAddOrder}
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24 }}>
+              <div className="dash-flow-nav" style={{ justifyContent: 'space-between' }}>
                 <button
                   onClick={() => setActiveTab('arena')}
                   className="btn-glass"
@@ -343,11 +343,11 @@ export default function App() {
 
           {activeTab === 'analytics' && (
             <div style={{ animation: 'fadeInUp 0.4s ease both' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+              <div className="dash-analytics-grid">
                 <EdgeAnalyticsCard />
                 <SomniaArchitectureMatrix />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24 }}>
+              <div className="dash-flow-nav" style={{ justifyContent: 'space-between' }}>
                 <button
                   onClick={() => setActiveTab('trading')}
                   className="btn-glass"
@@ -376,7 +376,7 @@ export default function App() {
                 pullRecords={pullRecords}
                 loggerAddress="0xa8E1d0BDdA53313a8A59b4F7A144d16bB77AdB8a"
               />
-              <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: 24 }}>
+              <div className="dash-flow-nav" style={{ justifyContent: 'flex-start' }}>
                 <button
                   onClick={() => setActiveTab('analytics')}
                   className="btn-glass"

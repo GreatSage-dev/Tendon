@@ -174,34 +174,44 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
   ];
 
   return (
-    <header style={styles.header}>
-      <div style={styles.container}>
+    <header className="dash-header" style={styles.header}>
+      <div className="dash-nav-container" style={styles.container}>
         
-        {/* Brand */}
-        <div style={styles.brandGroup}>
-          <div style={{ ...styles.logoIconContainer, overflow: 'hidden', padding: 0 }}>
-            <img 
-              src="/logo.jpg" 
-              alt="Tendon Logo" 
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-            />
-          </div>
-          <div style={styles.brandTextContainer}>
-            <div style={styles.brandTitleRow}>
-              <span style={styles.brandTitle}>TENDON</span>
-              <span style={styles.brandBadge}>
-                Somnia L1 Native
-              </span>
+        {/* Brand Row (includes mobile wallet button when screen <= 860px) */}
+        <div className="dash-brand-row">
+          <div style={styles.brandGroup}>
+            <div style={{ ...styles.logoIconContainer, overflow: 'hidden', padding: 0 }}>
+              <img 
+                src="/logo.jpg" 
+                alt="Tendon Logo" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
             </div>
-            <p style={styles.brandSubtitle}>
-              Reactive Order Protection Layer for dreamDEX CLOB
-            </p>
+            <div style={styles.brandTextContainer}>
+              <div style={styles.brandTitleRow}>
+                <span style={styles.brandTitle}>TENDON</span>
+                <span style={styles.brandBadge}>
+                  Somnia L1 Native
+                </span>
+              </div>
+              <p className="dash-brand-subtitle" style={styles.brandSubtitle}>
+                Reactive Order Protection Layer for dreamDEX CLOB
+              </p>
+            </div>
+          </div>
+
+          <div className="dash-mobile-wallet">
+            <ConnectButton
+              showBalance={false}
+              accountStatus={{ smallScreen: 'avatar', largeScreen: 'avatar' }}
+              chainStatus="none"
+            />
           </div>
         </div>
 
         {/* Center Tab Navigation Switcher (when activeTab prop is provided) */}
         {setActiveTab && (
-          <div style={styles.tabNavContainer}>
+          <div className="dash-tab-nav-container" style={styles.tabNavContainer}>
             {navTabs.map(t => {
               const isActive = activeTab === t.id;
               const TabIcon = t.Icon;
@@ -224,8 +234,8 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
           </div>
         )}
 
-        {/* Status Indicators & Wallet */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        {/* Desktop Wallet & Status Indicators (hidden on mobile <= 860px) */}
+        <div className="dash-desktop-wallet" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
           {!setActiveTab && (
             <div style={styles.statusGroup}>
               <div style={styles.statusBadge}>
@@ -242,19 +252,18 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
             </div>
           )}
 
-        {/* MM Wallet Action — RainbowKit & Wagmi Wallet Integration */}
-        <div style={styles.walletGroup}>
-          <ConnectButton
-            showBalance={false}
-            accountStatus={{
-              smallScreen: 'avatar',
-              largeScreen: 'full',
-            }}
-            chainStatus="icon"
-          />
+          <div style={styles.walletGroup}>
+            <ConnectButton
+              showBalance={false}
+              accountStatus={{
+                smallScreen: 'avatar',
+                largeScreen: 'full',
+              }}
+              chainStatus="icon"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
   );
 }
