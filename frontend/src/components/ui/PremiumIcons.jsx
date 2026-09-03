@@ -10,6 +10,63 @@ const defaultProps = (size = 18, className = "") => ({
   className,
 });
 
+/** Official Tendon Protocol Monogram Logo SVG */
+export function TendonLogo({ size = 24, style, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={style} className={className}>
+      <defs>
+        <linearGradient id="tendon-primary-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="50%" stopColor="#4A7FC7" />
+          <stop offset="100%" stopColor="#1D4ED8" />
+        </linearGradient>
+        <linearGradient id="tendon-glow-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#38BDF8" />
+        </linearGradient>
+        <filter id="tendon-soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+      {/* Left Interwoven Tendon Cord */}
+      <path
+        d="M4.5 8.5C4.5 7.12 5.62 6 7 6H16C16 6 12.5 12 11 17C9.5 22 7.5 26 7.5 26"
+        stroke="url(#tendon-primary-grad)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Right Interwoven Tendon Cord */}
+      <path
+        d="M27.5 8.5C27.5 7.12 26.38 6 25 6H16C16 6 19.5 12 21 17C22.5 22 24.5 26 24.5 26"
+        stroke="url(#tendon-glow-grad)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Central Kinetic Tendon Spine */}
+      <path
+        d="M16 6V27"
+        stroke="url(#tendon-primary-grad)"
+        strokeWidth="2.75"
+        strokeLinecap="round"
+        filter="url(#tendon-soft-glow)"
+      />
+      {/* Nodes and Cross Ties */}
+      <circle cx="16" cy="6.5" r="1.5" fill="#38BDF8" />
+      <circle cx="16" cy="26.5" r="1.5" fill="#38BDF8" />
+      <path
+        d="M10.5 13.5C12.5 15 14 15.5 16 15.5C18 15.5 19.5 15 21.5 13.5"
+        stroke="#38BDF8"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        opacity="0.85"
+      />
+    </svg>
+  );
+}
+
 /** Premium Zap / Lightning SVG with Gradient Glow */
 export function IconZap({ size = 18, color = "currentColor", style }) {
   return (

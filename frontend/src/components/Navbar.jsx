@@ -1,6 +1,6 @@
 import React from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { IconShield, IconZap, IconExternalLink, IconCpu, IconSwords, IconSliders, IconBarChart, IconScroll } from './ui/PremiumIcons.jsx';
+import { IconShield, IconZap, IconExternalLink, IconCpu, IconSwords, IconSliders, IconBarChart, IconScroll, TendonLogo } from './ui/PremiumIcons.jsx';
 
 export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, setActiveTab }) {
   const styles = {
@@ -180,7 +180,7 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
         {/* Brand */}
         <div style={styles.brandGroup}>
           <div style={styles.logoIconContainer}>
-            <IconZap size={20} />
+            <TendonLogo size={22} />
           </div>
           <div style={styles.brandTextContainer}>
             <div style={styles.brandTitleRow}>
