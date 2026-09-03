@@ -179,8 +179,12 @@ export default function Navbar({ mmAddress, isConnected, onConnect, activeTab, s
         
         {/* Brand */}
         <div style={styles.brandGroup}>
-          <div style={styles.logoIconContainer}>
-            <TendonLogo size={22} />
+          <div style={{ ...styles.logoIconContainer, overflow: 'hidden', padding: 0 }}>
+            <img 
+              src="/logo.jpg" 
+              alt="Tendon Logo" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+            />
           </div>
           <div style={styles.brandTextContainer}>
             <div style={styles.brandTitleRow}>

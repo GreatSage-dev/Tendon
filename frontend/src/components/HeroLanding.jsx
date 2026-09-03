@@ -58,7 +58,11 @@ export default function TendonLandingPage({ onEnterDashboard }) {
       {/* ── Dark Pill Navbar ────────────────────────────── */}
       <nav className="pill-nav">
         <a href="#" className="pill-nav-brand" onClick={(e) => { e.preventDefault(); }}>
-          <IconZap size={16} />
+          <img 
+            src="/logo.jpg" 
+            alt="Tendon Logo" 
+            style={{ width: 22, height: 22, borderRadius: 6, objectFit: 'cover', boxShadow: '0 0 10px rgba(56, 189, 248, 0.45)' }} 
+          />
           <span>Tendon</span>
         </a>
 
@@ -115,6 +119,44 @@ export default function TendonLandingPage({ onEnterDashboard }) {
               />
             );
           })}
+        </div>
+
+        {/* Floating Premium Brand Emblem */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 20,
+          position: 'relative',
+        }}>
+          <div style={{
+            position: 'absolute',
+            width: 130,
+            height: 130,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, rgba(37, 99, 235, 0.1) 50%, transparent 70%)',
+            filter: 'blur(22px)',
+            pointerEvents: 'none',
+          }} />
+          <div style={{
+            width: 76,
+            height: 76,
+            borderRadius: '22px',
+            background: 'linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.03))',
+            border: '1px solid rgba(255, 255, 255, 0.22)',
+            boxShadow: '0 12px 36px -4px rgba(0, 0, 0, 0.65), 0 0 24px rgba(56, 189, 248, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            backdropFilter: 'blur(12px)',
+          }}>
+            <img 
+              src="/logo.jpg" 
+              alt="Tendon Protocol Emblem" 
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
         </div>
 
         <div className="landing-hero-badge">
@@ -415,7 +457,10 @@ export default function TendonLandingPage({ onEnterDashboard }) {
       <footer className="landing-footer">
         <div className="landing-container">
           <div className="landing-footer-inner">
-            <span className="landing-footer-brand">Tendon Protocol</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <img src="/logo.jpg" alt="Tendon" style={{ width: 18, height: 18, borderRadius: 4, objectFit: 'cover' }} />
+              <span className="landing-footer-brand">Tendon Protocol</span>
+            </div>
             <span className="landing-footer-sub">Somnia × DreamDEX Hackathon 2026 • Chain 50312</span>
           </div>
         </div>
